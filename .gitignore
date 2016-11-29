@@ -1,3 +1,6 @@
-node_modules/
-bower_components/
 .idea/
+bower_components/
+node_modules/
+public/build/
+public/assets/libs/
+public/assets/img/
