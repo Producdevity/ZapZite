@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="ZZapp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="ZZapp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="ZZapp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="ZZapp" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ZapZite</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<link rel="stylesheet" href="assets/libs/materialize/materialize.css"/>
+	<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<header ng-controller="NavController as nav">
+	<!-- Dropdown Structure -->
+
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo"> ZapZite</a>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down">
+				<li ng-class="{active: nav.isActive('/dashboard')}"><a ng-href="#/dashboard">Dashboard</a></li>
+				<li ng-class="{active: nav.isActive('/categories')}"><a ng-href="#/categories">Categories</a></li>
+				<li ng-class="{active: nav.isActive('/sites')}"><a ng-href="#/sites">Sites</a></li>
+				<li ng-class="{active: nav.isActive('/users')}"><a ng-href="#/users">Users</a></li>
+				<li ng-class="{active: nav.isActive('/settings')}"><a ng-href="#/settings">Settings</a></li>
+				<li><a class="dropdown-button" data-activates="dropdown-user">User D<i class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+			<ul id="dropdown-user" class="dropdown-content">
+				<li><a href="#">Profile</a></li>
+				<li class="divider"></li>
+				<li><a ng-click="nav.logout()">Logout</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+				<li ng-class="{active: nav.isActive('/dashboard')}"><a ng-href="#/dashboard">Dashboard</a></li>
+				<li ng-class="{active: nav.isActive('/categories')}"><a ng-href="#/categories">Categories</a></li>
+				<li ng-class="{active: nav.isActive('/sites')}"><a ng-href="#/sites">Sites</a></li>
+				<li ng-class="{active: nav.isActive('/users')}"><a ng-href="#/users">Users</a></li>
+				<li class="divider"></li>
+				<li ng-class="{active: nav.isActive('/settings')}"><a ng-href="#/settings">Settings</a></li>
+				<li><a ng-click="nav.logout()">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
+
+<!--[if lt IE 7]>
+<p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+	<main>
+		<div class="container fluid">
+			<div ng-view=""></div>
+		</div>
+	</main>
+
+<!--Bootstrap and jQuery-->
+<script src="assets/libs/jquery/jquery.js"></script>
+<!--Materialize.js-->
+<script src="assets/libs/materialize/materialize.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$(".button-collapse").sideNav();
+		$(".dropdown-button").dropdown();
+	});
+</script>
+
+<!--Angular and Dependancies-->
+<script src="assets/libs/angular/angular.js"></script>
+<script src="assets/libs/angular-route/angular-route.js"></script>
+
+<!--Components-->
+<script src="build/js/scripts.js"></script>
+
+</body>
+</html>
