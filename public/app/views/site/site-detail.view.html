@@ -1,0 +1,235 @@
+<p>Sites</p>
+<!--<pre>-->
+<!--{{ vm.site | json }}-->
+<!--</pre>-->
+<!--<p ng-hide="vm.sites.$resolved">loading..</p>-->
+<!--<ul class="collection">-->
+<!--<li ng-drag="true" class="collection-item" ng-repeat="site in vm.sites">-->
+<!--{{ site.name }} | {{ site.url }}-->
+<!--</li>-->
+<!--</ul>-->
+<a class="waves-effect waves-light btn" ng-click="vm.back()">
+	<i class="material-icons left">arrow_back</i>Go back
+</a>
+
+<div class="row">
+	<div class="col s6">
+		<h5>Categories</h5>
+		<ul class="collection">
+			<loading-spinner data="vm.categories.$resolved"></loading-spinner>
+			<li class="collection-item"
+			    ng-repeat="category in vm.categories">
+				<div>{{category.name}}
+					<a class="secondary-content hvr-grow"
+					   id="dropItem"
+					   ng-drag="true"
+					   ng-drag-data="category"
+					   ng-drag-start="vm.onDragStart(category)"
+					   data-allow-transform="false">
+						<i class="material-icons">open_with</i>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="col s6">
+		<h5>{{ vm.site.name }}</h5>
+		<loading-spinner data="vm.site.$resolved"></loading-spinner>
+		<ul class="collection" ng-drop="true">
+			<li class="collection-item center drop-here tooltipped" id="drop-area" data-position="top" data-tooltip="Drop here" ng-drop="true" ng-drop-success="vm.onDropComplete($data,$event)">
+				<i class="material-icons">all_out</i>
+			</li>
+		</ul>
+		<ul class="collection">
+			<li class="collection-item"
+			    ng-repeat="category in filteredCategories = (vm.categories | SiteDetailFilter: vm.site)">
+				<div>{{category.name}}
+					<a class="secondary-content"
+					   ng-click="vm.deleteCategory(category)">
+						<i class="material-icons delete-icon">delete</i>
+					</a>
+				</div>
+			</li>
+		</ul>
+		<p ng-show="vm.site.$resolved">{{filteredCategories.length}} categories</p>
+
+	</div>
+</div>
+
+
+<hr/>
+
+
+<style>
+	[ng-drag].dragging {
+		color: #000;
+		/*opacity: 0.5;*/
+		/*display: inline-block;*/
+		/*vertical-align: middle;*/
+		/*transform: translateZ(0);*/
+		/*box-shadow: 0 0 1px rgba(0, 0, 0, 0);*/
+		/*backface-visibility: hidden;*/
+		/*-moz-osx-font-smoothing: grayscale;*/
+		/*transition-duration: 0.3s;*/
+		/*transition-property: transform;*/
+	}
+
+	[ng-drag].drag-over {
+		color: #19be0e;
+	}
+
+	/*[ng-drop].drag-enter {*/
+	/*border: solid 5px green;*/
+	/*}*/
+
+	.hvr-grow {
+		transform: translateZ(0);
+		box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+		-moz-osx-font-smoothing: grayscale;
+		transition-duration: 0.3s;
+		transition-property: transform;
+	}
+
+	/*.hvr-grow:hover,*/
+	/*.hvr-grow:focus,*/
+	.hvr-grow:active {
+		z-index: 1;
+		transform: scale(1.5);
+	}
+
+	/* Pulse Grow */
+	@-webkit-keyframes hvr-pulse-grow {
+		to {
+			-webkit-transform: scale(1.4);
+			transform: scale(1.4);
+		}
+	}
+	@keyframes hvr-pulse-grow {
+		to {
+			-webkit-transform: scale(1.4);
+			transform: scale(1.4);
+		}
+	}
+
+	.drop-here {
+		margin-top: 8px !important;
+		cursor: default;
+		vertical-align: middle;
+		-webkit-transform: perspective(1px) translateZ(0);
+		transform: perspective(1px) translateZ(0);
+		box-shadow: 0 0 1px transparent;
+	}
+	.hvr-pulse-grow {
+		display: inline-block;
+		cursor: default;
+		vertical-align: middle;
+		-webkit-transform: perspective(1px) translateZ(0);
+		transform: perspective(1px) translateZ(0);
+		box-shadow: 0 0 1px transparent;
+	}
+	.hvr-pulse-grow:hover,
+	.hvr-pulse-grow:focus,
+	.hvr-pulse-grow:active,
+	.hvr-pulse-grow,
+	li.drag-enter{
+		-webkit-animation-name: hvr-pulse-grow;
+		animation-name: hvr-pulse-grow;
+		-webkit-animation-duration: 0.5s;
+		animation-duration: 0.5s;
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		-webkit-animation-iteration-count: infinite;
+		animation-iteration-count: infinite;
+		-webkit-animation-direction: alternate;
+		animation-direction: alternate;
+	}
+
+	[ng-drop].collection.drag-enter {
+		border: 3px solid #e0e0e0;
+	}
+
+	/*[ng-drag] {*/
+	/*-moz-user-select: -moz-none;*/
+	/*-khtml-user-select: none;*/
+	/*-webkit-user-select: none;*/
+	/*-ms-user-select: none;*/
+	/*user-select: none;*/
+	/*}*/
+
+	/*[ng-drag] {*/
+	/*width: 100px;*/
+	/*height: 100px;*/
+	/*background: rgba(255, 0, 0, 0.5);*/
+	/*color: white;*/
+	/*text-align: center;*/
+	/*padding-top: 40px;*/
+	/*display: inline-block;*/
+	/*margin: 0 10px;*/
+	/*cursor: move;*/
+	/*}*/
+
+	/*ul.collection:after {*/
+	/*display: block;*/
+	/*content: "";*/
+	/*clear: both;*/
+	/*}*/
+	/*ul.draggable-objects:after {*/
+	/*display: block;*/
+	/*content: "";*/
+	/*clear: both;*/
+	/*}*/
+
+	/*.draggable-objects li {*/
+	/*float: left;*/
+	/*display: block;*/
+	/*width: 120px;*/
+	/*height: 100px;*/
+	/*}*/
+
+	/*[ng-drag].drag-over {*/
+	/*border: solid 1px red;*/
+	/*}*/
+
+	/*[ng-drag].dragging {*/
+	/*opacity: 0.5;*/
+	/*}*/
+
+	/*[ng-drop] {*/
+	/*background: rgba(0, 255, 0, 0.5);*/
+	/*text-align: center;*/
+	/*width: 600px;*/
+	/*height: 200px;*/
+	/*padding-top: 90px;*/
+	/*display: block;*/
+	/*margin: 20px auto;*/
+	/*position: relative;*/
+	/*}*/
+
+	/*[ng-drop].drag-enter {*/
+		/*border: 3px solid #e0e0e0;*/
+	/*}*/
+
+	/*[ng-drop] span.title {*/
+	/*display: block;*/
+	/*position: absolute;*/
+	/*top: 50%;*/
+	/*left: 50%;*/
+	/*width: 200px;*/
+	/*height: 20px;*/
+	/*margin-left: -100px;*/
+	/*margin-top: -10px;*/
+	/*}*/
+
+	/*[ng-drop] div {*/
+	/*position: relative;*/
+	/*z-index: 2;*/
+	/*}*/
+
+</style>
+
+<script>
+	$(document).ready(function(){
+		$('.tooltipped').tooltip({delay: 50});
+		$('.modal').modal();
+	});
+</script>

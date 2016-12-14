@@ -1,10 +1,13 @@
-'use strict';
+(() => {
+	'use strict';
 
-(function() {
-  angular
-      .module('ZZapp', [
-        'ngRoute',
-        'app.components'
-      ]);
+	angular
+			.module('ZZapp', [
+				'ngRoute',
+				'ngAnimate',
+				'ngDraggable',
+				'firebase',
+				'app.components'
+			]);
 
 })();

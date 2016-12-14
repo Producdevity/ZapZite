@@ -1,9 +1,10 @@
 'use strict';
 
 (function() {
-  angular
-      .module("category.module", [
-        "category.controller"
-      ]);
+	angular
+			.module('category.module', [
+				'category.controller',
+				'category.service'
+			]);
 
 })();

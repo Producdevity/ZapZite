@@ -1,0 +1,28 @@
+nav {
+	color: #000;
+	background-color: #fabe20;
+
+	a.brand-logo {
+		padding-left: 10px;
+	}
+
+	ul a {
+		color: #000;
+	}
+}
+
+a.secondary-content {
+	cursor: pointer;
+}
+
+i.material-icons {
+	cursor: pointer;
+
+	.delete-icon {
+		cursor: pointer;
+	}
+}
+
+.card-action > a {
+	cursor: pointer;
+}

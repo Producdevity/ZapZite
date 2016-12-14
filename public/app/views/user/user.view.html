@@ -1,0 +1,93 @@
+<h4>Users</h4>
+
+<div class="row">
+	<div class="col s6">
+		<div class="row">
+			<div class="col s12">
+				<p>{{vm.users.$resolved}}</p>
+				<ul class="collection with-header">
+					<li class="collection-header"><h5>Users</h5></li>
+					<loading-spinner data="vm.users.$resolved"></loading-spinner>
+					<li class="collection-item" ng-repeat="user in vm.users" ng-if="vm.users.$resolved">
+						<div>{{ user.email }}
+							<a class="secondary-content">
+								<i class="material-icons" ng-click="vm.deleteUser(user)">delete_forever</i>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col s6">
+		<div class="row">
+			<p ng-if="vm.error">{{ vm.error }}</p>
+			<div class="col s12">
+				<form ng-submit="vm.addUser()" autocomplete="false">
+					<div class="input-field">
+						<input id="user-email" type="email" readonly onfocus="this.removeAttribute('readonly');" class="validate" ng-model="vm.newUser.email">
+						<label for="user-email">User email</label>
+					</div>
+					<div class="input-field">
+						<input id="user-password" type="password" readonly onfocus="this.removeAttribute('readonly');" class="validate" ng-model="vm.newUser.pass">
+						<label for="user-password">User password</label>
+					</div>
+					<button class="waves-effect waves-light btn" type="submit"
+					        ng-disabled="!vm.newUser.name && !vm.newUser.pass"><i
+							class="material-icons">add</i></button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="card blue-grey darken-1" ng-if="vm.selectedCategory">
+					<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">Edit: {{ vm.oldCategory.name }}<i
+							class="material-icons right">more_vert</i></span>
+						<div class="input-field">
+							<input id="edit-category" type="text" class="validate"
+							       ng-model="vm.selectedCategory.name">
+							<label for="edit-category"></label>
+						</div>
+					</div>
+					<div class="card-action">
+						<a ng-click="vm.cancelEditing()">CANCEL</a>
+						<a ng-click="vm.updateCategory()">UPDATE</a>
+					</div>
+					<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">Card Title<i
+							class="material-icons right">close</i></span>
+						<p>Here is some more information about this category or some explanation that is only
+							revealed once clicked on.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	/*li.collection-item.ng-enter {*/
+		/*transition: 0.5s linear all;*/
+		/*opacity: 0;*/
+	/*}*/
+	/*li.collection-item.ng-enter.ng-enter-active {*/
+		/*opacity: 1;*/
+	/*}*/
+	li.collection-item.ng-enter.ng-enter-active{
+		animation: fadeIn 1s;
+	}
+
+	li.collection-item.ng-leave{
+	    animation: slideOutLeft 1s;
+	}
+
+	/*loading-spinner.ng-enter {*/
+		/*transition: 0.5s linear all;*/
+		/*opacity: 0;*/
+	/*}*/
+	/*loading-spinner.ng-enter.ng-enter-active {*/
+		/*opacity: 1;*/
+	/*}*/
+
+</style>

@@ -1,21 +1,32 @@
-(function()
-{
-  angular
-      .module("nav.controller", [])
-      .controller("NavController", NavController);
+(function () {
+	angular
+			.module("nav.controller", [])
+			.controller("NavController", NavController);
 
-  function NavController($location, $rootScope)
-  {
-    var vm = this;
-    vm.logout = logout;
-    vm.isActive = isActive;
+	function NavController($location, Auth, Functions) {
+		var vm      = this;
+		const _fs = Functions;
+		vm.signOut   = signOut;
+		vm.isActive = isActive;
+		// initialize view data
+		function init() {
 
-    function logout() {
-      console.log('logout');
-    }
+		}
 
-    function isActive(destination){
-      return destination === $location.path();
-    }
-  }
+		init();
+
+		//vm.auth.$onAuthStateChanged(function(user) {
+		//	vm.user = user;
+		//});
+
+		function signOut() {
+			Auth.$signOut()
+					.then(_fs.toast('You are signed out.'));
+
+		}
+
+		function isActive(destination) {
+			return destination === $location.path();
+		}
+	}
 })();

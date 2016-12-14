@@ -1,3 +1,20 @@
-nav a.brand-logo {
-	padding-left: 10px;
-}
+nav {
+  color: #000;
+  background-color: #fabe20; }
+  nav a.brand-logo {
+    padding-left: 10px; }
+  nav ul a {
+    color: #000; }
+
+a.secondary-content {
+  cursor: pointer; }
+
+i.material-icons {
+  cursor: pointer; }
+  i.material-icons .delete-icon {
+    cursor: pointer; }
+
+.card-action > a {
+  cursor: pointer; }
+
+/*# sourceMappingURL=app.css.map */

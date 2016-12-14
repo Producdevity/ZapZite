@@ -4,3 +4,9 @@ node_modules/
 public/build/
 public/assets/libs/
 public/assets/img/
+.firebaserc
+.sass-cache/
+database.rules.json
+firebase.json
+public/assets/css/app.css
+public/assets/css/app.css.map

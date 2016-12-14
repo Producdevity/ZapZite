@@ -1,0 +1,10 @@
+<h1>Sign in</h1>
+<p ng-if="vm.error">{{ vm.error }}</p>
+<loading-spinner data="!vm.loading"></loading-spinner>
+<div ng-hide="vm.loading">
+	<form ng-submit="vm.signIn(credentials)">
+		<input type="email" ng-model="credentials.email">
+		<input type="password" ng-model="credentials.pass">
+		<button class="waves-effect waves-light btn" type="submit">Sign in</button>
+	</form>
+</div>

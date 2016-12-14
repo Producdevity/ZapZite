@@ -1,0 +1,93 @@
+<h4>Sites</h4>
+
+<div class="row">
+	<div class="col s6">
+		<div class="row">
+			<div class="col s12">
+				<ul class="collection with-header">
+					<li class="collection-header"><h5>Sites</h5></li>
+					<loading-spinner data="vm.sites.$resolved"></loading-spinner>
+					<li class="collection-item" ng-repeat="site in vm.sites">
+						<div>{{ site.name }}
+							<a class="secondary-content">
+								<i class="material-icons" ng-click="vm.goToSiteDetails(site)">note_add</i>
+								<i class="material-icons" ng-click="vm.selectSite(site)">edit</i>
+								<i class="material-icons modal-trigger" data-target="deleteSite" ng-click="vm.deleteSiteBox(site)">delete_forever</i>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col s6">
+		<div class="row">
+			<div class="col s12">
+				<form ng-submit="vm.addSite()">
+					<div class="input-field">
+						<input id="site-name" type="text" class="validate" ng-model="vm.newSite.name">
+						<label for="site-name">Site name</label>
+					</div>
+					<div class="input-field">
+						<input id="site-url" type="text" class="validate" ng-model="vm.newSite.url">
+						<label for="site-url">Site url</label>
+					</div>
+					<button class="waves-effect waves-light btn" type="submit"
+					        ng-disabled="!vm.newSite.name || !vm.newSite.url"><i
+							class="material-icons">add</i></button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="card blue-grey darken-1" ng-if="vm.selectedSite">
+					<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">Edit: {{ vm.oldSite.name }}<i
+							class="material-icons right">more_vert</i></span>
+						<div class="input-field">
+							<input id="edit-site-name" type="text" class="validate"
+							       ng-model="vm.selectedSite.name">
+							<label for="edit-site-name"></label>
+						</div>
+						<div class="input-field">
+							<input id="edit-site-url" type="text" class="validate"
+							       ng-model="vm.selectedSite.url">
+							<label for="edit-site-url"></label>
+						</div>
+					</div>
+					<div class="card-action">
+						<a ng-click="vm.cancelEditing()">CANCEL</a>
+						<a ng-click="vm.updateSite()">UPDATE</a>
+					</div>
+					<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">Card Title<i
+							class="material-icons right">close</i></span>
+						<p>Here is some more information about this site or some explanation that is only
+							revealed once clicked on.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Structure -->
+<div id="deleteSite" class="modal">
+	<div class="modal-content">
+		<h4>Are you sure you want to delete this item?</h4>
+		<p> {{ vm.deleteSelectedSite.name }}</p>
+		<p> {{ vm.deleteSelectedSite.url }}</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="vm.deleteSite(vm.deleteSelectedSite)">Delete</a>
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+//		$('.modal-trigger').leanModal();
+		$('.modal').modal();
+		$('.tooltipped').tooltip({delay: 50});
+	});
+</script>
