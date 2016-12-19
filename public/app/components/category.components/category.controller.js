@@ -56,7 +56,7 @@
 						.then(_fs.toast(`Changed category ${vm.oldCategory.name} to ${vm.selectedCategory.name}`))
 						.then(vm.selectedCategory = null);
 			} else {
-				_fs.toast(`Updated category can not be empty`)
+				_fs.toast(`Updated category can not be empty`);
 			}
 		}
 

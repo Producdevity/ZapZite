@@ -143,7 +143,7 @@
 						.then(_fs.toast(`Changed category ${vm.oldCategory.name} to ${vm.selectedCategory.name}`))
 						.then(vm.selectedCategory = null);
 			} else {
-				_fs.toast(`Updated category can not be empty`)
+				_fs.toast(`Updated category can not be empty`);
 			}
 		}
 
@@ -469,8 +469,9 @@
 	}
 })();
 
+(() => {
 "use strict";
-(function() {
+
 	angular
 			.module("site.controller", [])
 			.controller("SiteController", SiteController);
@@ -544,7 +545,7 @@
 	}
 })();
 "use strict";
-(function () {
+(function() {
 	angular
 			.module("user.controller", [])
 			.controller("UserController", UserController);
@@ -555,10 +556,11 @@
 
 		vm.newUser;
 
-		vm.signUp = signUp;
-		vm.signIn = signIn;
-		vm.addUser    = addUser;
-		vm.deleteUser = deleteUser;
+		vm.signUp        = signUp;
+		vm.signIn        = signIn;
+		vm.addUser       = addUser;
+		vm.deleteUserBox = deleteUserBox;
+		vm.deleteUser    = deleteUser;
 
 		// initialize view data
 		function init() {
@@ -584,11 +586,6 @@
 						vm.error = error.message;
 					});
 
-		}
-
-		function deleteUser(user) {
-			UserService.deleteUser(user)
-					.then(_fs.toast(`Deleted user ${user.name}`));
 		}
 
 		function signUp(credentials) {
@@ -618,6 +615,15 @@
 			});
 		}
 
+		function deleteUserBox(category) {
+			vm.deleteSelectedUser = category;
+		}
+
+		function deleteUser(user) {
+			UserService.deleteUser(user)
+					.then(_fs.toast(`Deleted site ${user.email}`));
+		}
+
 	}
 })();
 'use strict';
@@ -631,7 +637,7 @@
 
 })();
 
-(function () {
+(() => {
 	'use strict';
 
 	angular
@@ -776,15 +782,15 @@
 			})
 
 })();
-(function () {
+(function() {
 	angular
 			.module("nav.controller", [])
 			.controller("NavController", NavController);
 
 	function NavController($location, Auth, Functions) {
 		var vm      = this;
-		const _fs = Functions;
-		vm.signOut   = signOut;
+		const _fs   = Functions;
+		vm.signOut  = signOut;
 		vm.isActive = isActive;
 		// initialize view data
 		function init() {
@@ -800,7 +806,6 @@
 		function signOut() {
 			Auth.$signOut()
 					.then(_fs.toast('You are signed out.'));
-
 		}
 
 		function isActive(destination) {

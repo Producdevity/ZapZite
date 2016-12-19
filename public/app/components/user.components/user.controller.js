@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+(function() {
 	angular
 			.module("user.controller", [])
 			.controller("UserController", UserController);
@@ -10,10 +10,11 @@
 
 		vm.newUser;
 
-		vm.signUp = signUp;
-		vm.signIn = signIn;
-		vm.addUser    = addUser;
-		vm.deleteUser = deleteUser;
+		vm.signUp        = signUp;
+		vm.signIn        = signIn;
+		vm.addUser       = addUser;
+		vm.deleteUserBox = deleteUserBox;
+		vm.deleteUser    = deleteUser;
 
 		// initialize view data
 		function init() {
@@ -41,11 +42,6 @@
 
 		}
 
-		function deleteUser(user) {
-			UserService.deleteUser(user)
-					.then(_fs.toast(`Deleted user ${user.name}`));
-		}
-
 		function signUp(credentials) {
 			console.log(credentials);
 			Auth.$createUserWithEmailAndPassword(credentials.email, credentials.pass)
@@ -71,6 +67,15 @@
 				_fs.toast(error.message, 5000);
 				vm.error = error.message;
 			});
+		}
+
+		function deleteUserBox(category) {
+			vm.deleteSelectedUser = category;
+		}
+
+		function deleteUser(user) {
+			UserService.deleteUser(user)
+					.then(_fs.toast(`Deleted site ${user.email}`));
 		}
 
 	}

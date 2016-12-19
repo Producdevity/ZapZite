@@ -1,5 +1,6 @@
+(() => {
 "use strict";
-(function() {
+
 	angular
 			.module("site.controller", [])
 			.controller("SiteController", SiteController);
