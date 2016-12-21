@@ -221,15 +221,16 @@
 	}
 })();
 
-'use strict';
+(() => {
+	'use strict';
 
-(function () {
 	angular
 			.module('app.components', [
 				'auth.module',
 				'shared.module',
 				'dashboard.module',
 				'category.module',
+				'settings.module',
 				'site.module',
 				'user.module'
 			]);
@@ -263,6 +264,80 @@
         "dashboard.controller"
       ]);
 
+})();
+
+(() => {
+"use strict";
+
+	angular
+			.module("settings.controller", [])
+			.controller("SettingsController", SettingsController);
+
+	function SettingsController(SettingsService, Functions) {
+		let vm = this;
+		let _fs = Functions;
+
+		vm.settings = {};
+
+		vm.changeEmail = changeEmail;
+
+		// initialize view data
+		function init() {
+			vm.settings.email = SettingsService.getSetting('email');
+			console.log(vm.settings);
+			console.log(vm.settings.email);
+		}
+
+		init();
+
+		function changeEmail() {
+			vm.settings.email.$save();
+			_fs.toast(`Email changed to ${vm.settings.email.$value}`);
+		}
+	}
+})();
+(() => {
+	'use strict';
+
+	angular
+			.module("settings.module", [
+				"settings.controller",
+				"settings.service"
+			]);
+
+})();
+
+(() => {
+	'use strict';
+
+	angular
+			.module("settings.service", [])
+			.factory("SettingsService", SettingsService);
+
+	function SettingsService($firebaseRef, $firebaseObject, $firebaseArray) {
+		const settings = $firebaseArray($firebaseRef.settings);
+
+		const API = {
+			getSettings: getSettings,
+			updateEmail: updateEmail,
+			getSetting:  getSetting
+		};
+		return API;
+
+		function getSettings() {
+			return settings;
+		}
+
+		function getSetting(item) {
+			//return $firebaseObject($firebaseRef.settings.email);
+			return $firebaseObject($firebaseRef.settings.child(item));
+		}
+
+		function updateEmail(email) {
+			return email.$save();
+		}
+
+	}
 })();
 
 (() => {
@@ -676,10 +751,10 @@
 })();
 
 (() => {
-'use strict';
+	'use strict';
 
 	angular.module("ZZapp")
-			.config(function ($routeProvider, $firebaseRefProvider, $locationProvider) {
+			.config(function($routeProvider, $firebaseRefProvider, $locationProvider) {
 				console.log('config function started');
 
 				const config = {
@@ -695,6 +770,7 @@
 					default:    config.databaseURL,
 					categories: `${config.databaseURL}/categories`,
 					sites:      `${config.databaseURL}/sites`,
+					settings:   `${config.databaseURL}/settings`,
 					users:      `${config.databaseURL}/users`
 				});
 				$locationProvider.hashPrefix('');
@@ -702,6 +778,11 @@
 						.when('/dashboard', {
 							templateUrl:  'app/views/dashboard/dashboard.view.html',
 							controller:   'DashboardController',
+							controllerAs: 'vm'
+						})
+						.when('/settings', {
+							templateUrl:  'app/views/settings/settings.view.html',
+							controller:   'SettingsController',
 							controllerAs: 'vm'
 						})
 						.when('/categories', {
@@ -738,7 +819,7 @@
 							redirectTo: '/dashboard'
 						});
 			})
-			.run(function (Auth, $rootScope, $location) {
+			.run(function(Auth, $rootScope, $location) {
 				console.log('run function started');
 				checkAuth();
 
@@ -782,7 +863,9 @@
 			})
 
 })();
-(function() {
+(() => {
+	'use strict';
+
 	angular
 			.module("nav.controller", [])
 			.controller("NavController", NavController);
@@ -798,10 +881,6 @@
 		}
 
 		init();
-
-		//vm.auth.$onAuthStateChanged(function(user) {
-		//	vm.user = user;
-		//});
 
 		function signOut() {
 			Auth.$signOut()

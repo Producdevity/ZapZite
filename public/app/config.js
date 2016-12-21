@@ -1,8 +1,8 @@
 (() => {
-'use strict';
+	'use strict';
 
 	angular.module("ZZapp")
-			.config(function ($routeProvider, $firebaseRefProvider, $locationProvider) {
+			.config(function($routeProvider, $firebaseRefProvider, $locationProvider) {
 				console.log('config function started');
 
 				const config = {
@@ -18,6 +18,7 @@
 					default:    config.databaseURL,
 					categories: `${config.databaseURL}/categories`,
 					sites:      `${config.databaseURL}/sites`,
+					settings:   `${config.databaseURL}/settings`,
 					users:      `${config.databaseURL}/users`
 				});
 				$locationProvider.hashPrefix('');
@@ -25,6 +26,11 @@
 						.when('/dashboard', {
 							templateUrl:  'app/views/dashboard/dashboard.view.html',
 							controller:   'DashboardController',
+							controllerAs: 'vm'
+						})
+						.when('/settings', {
+							templateUrl:  'app/views/settings/settings.view.html',
+							controller:   'SettingsController',
 							controllerAs: 'vm'
 						})
 						.when('/categories', {
@@ -61,7 +67,7 @@
 							redirectTo: '/dashboard'
 						});
 			})
-			.run(function (Auth, $rootScope, $location) {
+			.run(function(Auth, $rootScope, $location) {
 				console.log('run function started');
 				checkAuth();
 

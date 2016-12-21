@@ -86,8 +86,37 @@
 
 <script>
 	$(document).ready(function() {
-//		$('.modal-trigger').leanModal();
 		$('.modal').modal();
 		$('.tooltipped').tooltip({delay: 50});
 	});
 </script>
+
+<style>
+	/*li.collection-item.ng-enter {*/
+	/*transition: 0.5s linear all;*/
+	/*opacity: 0;*/
+	/*}*/
+	/*li.collection-item.ng-enter.ng-enter-active {*/
+	/*opacity: 1;*/
+	/*}*/
+	/*li.collection-item.ng-enter{*/
+		/*animation: bounceInUp 2s;*/
+	/*}*/
+
+	li.collection-item.ng-enter.ng-enter-active{
+		animation: fadeIn 0.5s;
+	}
+
+	li.collection-item.ng-leave{
+		animation: slideOutLeft 0.5s;
+	}
+
+	/*loading-spinner.ng-enter {*/
+	/*transition: 0.5s linear all;*/
+	/*opacity: 0;*/
+	/*}*/
+	/*loading-spinner.ng-enter.ng-enter-active {*/
+	/*opacity: 1;*/
+	/*}*/
+
+</style>

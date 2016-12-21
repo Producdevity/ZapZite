@@ -1,0 +1,84 @@
+<h4>Settings</h4>
+
+<div class="row">
+	<div class="col s3">
+		<!--<div class="row">-->
+			<!--<div class="col s12">-->
+				<!--<ul class="collection with-header">-->
+					<!--<li class="collection-header"><h5>Users</h5></li>-->
+					<!--<loading-spinner data="vm.users.$resolved"></loading-spinner>-->
+					<!--<li class="collection-item" ng-repeat="user in vm.users" ng-if="vm.users.$resolved">-->
+						<!--<div>{{ user.email }}-->
+							<!--<a class="secondary-content">-->
+								<!--<i class="material-icons" data-target="deleteUser" ng-click="vm.deleteUserBox(user)">delete_forever</i>-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</li>-->
+				<!--</ul>-->
+			<!--</div>-->
+		<!--</div>-->
+	</div>
+	<div class="col s6">
+		<div class="row">
+			<h5>Edit email</h5>
+			<p ng-if="vm.error">{{ vm.error }}</p>
+			<div class="col s12">
+				<form ng-submit="vm.changeEmail()">
+					<div class="input-field">
+						<input id="settings-email" type="email" class="validate" ng-model="vm.settings.email.$value">
+						<label for="settings-email">email</label>
+					</div>
+					<button class="waves-effect waves-light btn" type="submit"
+					        ng-disabled="!vm.settings.email"><i
+							class="material-icons">save</i></button>
+				</form>
+			</div>
+		</div>
+		<div class="col s3"></div>
+	</div>
+</div>
+
+<!-- Modal Structure -->
+<div id="deleteUser" class="modal">
+	<div class="modal-content">
+		<h4>Are you sure you want to delete this item?</h4>
+		<p> {{ vm.deleteSelectedUser.email }}</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="vm.deleteUser(vm.deleteSelectedUser)">Delete</a>
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('.modal').modal();
+		$('.tooltipped').tooltip({delay: 50});
+	});
+</script>
+
+<style>
+	/*li.collection-item.ng-enter {*/
+		/*transition: 0.5s linear all;*/
+		/*opacity: 0;*/
+	/*}*/
+	/*li.collection-item.ng-enter.ng-enter-active {*/
+		/*opacity: 1;*/
+	/*}*/
+	li.collection-item.ng-enter.ng-enter-active{
+		animation: fadeIn 1s;
+	}
+
+	li.collection-item.ng-leave{
+	    animation: slideOutLeft 1s;
+	}
+
+	/*loading-spinner.ng-enter {*/
+		/*transition: 0.5s linear all;*/
+		/*opacity: 0;*/
+	/*}*/
+	/*loading-spinner.ng-enter.ng-enter-active {*/
+		/*opacity: 1;*/
+	/*}*/
+
+</style>

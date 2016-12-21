@@ -1,4 +1,6 @@
-(function() {
+(() => {
+	'use strict';
+
 	angular
 			.module("nav.controller", [])
 			.controller("NavController", NavController);
@@ -14,10 +16,6 @@
 		}
 
 		init();
-
-		//vm.auth.$onAuthStateChanged(function(user) {
-		//	vm.user = user;
-		//});
 
 		function signOut() {
 			Auth.$signOut()

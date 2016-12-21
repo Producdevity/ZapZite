@@ -11,7 +11,8 @@
     "angular-loader": "~1.5.0",
     "materialize": "^0.97.8",
     "angularfire": "^2.1.0",
-    "angular-animate": "^1.6.0"
+    "angular-animate": "^1.6.0",
+    "animate.css": "^3.5.2"
   },
   "appPath": "public",
   "install": {
